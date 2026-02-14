@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>How Well Do You Know Me? 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", system-ui, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff4f8b, #ff7abf, #ffc3d9);
+  background-size: 300% 300%;
+  animation: gradientMove 10s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  padding: 20px;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+}
+
+.card {
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  animation: popIn 0.5s ease;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.progress-wrap {
+  background: rgba(255,255,255,0.3);
+  border-radius: 20px;
+  overflow: hidden;
+  height: 10px;
+  margin: 15px 0 20px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #fff;
+  transition: width 0.4s ease;
+}
+
+.question {
+  font-size: 1.05rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option-btn {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: none;
+  background: #fff;
+  color: #ff3f7a;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+}
+
+.option-btn:active {
+  transform: scale(0.97);
+}
+
+.option-btn.correct {
+  background: #b6ffcc;
+  color: #0a7a3c;
+}
+
+.option-btn.wrong {
+  background: #ffd0d0;
+  color: #a10000;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Result cards */
+.result-card {
+  text-align: center;
+  animation: popIn 0.6s ease;
+}
+
+.result-card img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 18px;
+  margin: 15px auto;
+  display: block;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.quote {
+  font-style: italic;
+  margin-top: 10px;
+  opacity: 0.95;
+}
+
+.score-big {
+  font-size: 2rem;
+  margin: 10px 0;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- QUIZ -->
+  <div id="quizCard" class="card">
+    <h1>How Well Do You Know Me? 💖</h1>
+
+    <div class="progress-wrap">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="options" class="options"></div>
+  </div>
+
+  <!-- RESULT: FOCUS -->
+  <div id="resultFocus" class="card result-card hidden">
+    <h1>💛 Your Score</h1>
+    <div class="score-big"><span id="scoreFocus"></span> / 100</div>
+    <p>
+      You know me, but not perfectly yet. Maybe we just need more time, more talks,
+      and more little moments together. 💫
+    </p>
+    <p class="quote">“Great relationships are built with effort, not luck.”</p>
+  </div>
+
+  <!-- RESULT: LOVE -->
+  <div id="resultLove" class="card result-card hidden">
+    <h1>💖 Your Score</h1>
+    <div class="score-big"><span id="scoreLove"></span> / 100</div>
+    <img src="https://images.unsplash.com/photo-1520975922284-4e6b1f5b8f59?q=80&w=800&auto=format&fit=crop" alt="Love">
+    <p class="quote">
+      “I choose you. And I’ll choose you over and over, without pause, without doubt, in a heartbeat.” ❤️
+    </p>
+  </div>
+</div>
+
+<script>
+// 👉 You can customize these questions to be about YOU TWO
+const questions = [
+  {
+    q: "What is my favorite color?",
+    options: ["Blue", "Black", "Red", "White"],
+    correct: 1
+  },
+  {
+    q: "What do I prefer more?",
+    options: ["Coffee", "Tea", "Juice", "Nothing"],
+    correct: 0
+  },
+  {
+    q: "What makes me happiest?",
+    options: ["Money", "Sleep", "Spending time with you", "Food"],
+    correct: 2
+  },
+  {
+    q: "What kind of movies do I like most?",
+    options: ["Horror", "Romance", "Action", "Comedy"],
+    correct: 2
+  },
+  {
+    q: "What do I value the most in a relationship?",
+    options: ["Looks", "Money", "Trust", "Fame"],
+    correct: 2
+  },
+  {
+    q: "What is my favorite time of day?",
+    options: ["Morning", "Afternoon", "Evening", "Night"],
+    correct: 3
+  },
+  {
+    q: "What annoys me the most?",
+    options: ["Being late", "Lies", "Noise", "Cold weather"],
+    correct: 1
+  },
+  {
+    q: "What do I love doing with you?",
+    options: ["Talking", "Traveling", "Watching movies", "All of these"],
+    correct: 3
+  },
+  {
+    q: "What is more important to me?",
+    options: ["Gifts", "Time together", "Messages", "Calls"],
+    correct: 1
+  },
+  {
+    q: "Do I see a future with you?",
+    options: ["Maybe", "Not sure", "Yes, always", "Too early"],
+    correct: 2
+  }
+];
+
+let current = 0;
+let score = 0;
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const progressBar = document.getElementById("progressBar");
+
+function loadQuestion() {
+  const q = questions[current];
+  questionEl.innerText = `Q${current + 1}. ${q.q}`;
+  optionsEl.innerHTML = "";
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option-btn";
+    btn.innerText = opt;
+    btn.onclick = () => selectAnswer(i, btn);
+    optionsEl.appendChild(btn);
+  });
+
+  const progress = (current / questions.length) * 100;
+  progressBar.style.width = progress + "%";
+}
+
+function selectAnswer(index, btn) {
+  const correctIndex = questions[current].correct;
+  const buttons = document.querySelectorAll(".option-btn");
+
+  // disable all
+  buttons.forEach(b => b.disabled = true);
+
+  if (index === correctIndex) {
+    btn.classList.add("correct");
+    score += 10;
+  } else {
+    btn.classList.add("wrong");
+    buttons[correctIndex].classList.add("correct");
+  }
+
+  setTimeout(() => {
+    current++;
+    if (current < questions.length) {
+      loadQuestion();
+    } else {
+      showResult();
+    }
+  }, 700);
+}
+
+function showResult() {
+  document.getElementById("quizCard").classList.add("hidden");
+  progressBar.style.width = "100%";
+
+  if (score >= 85) {
+    document.getElementById("scoreLove").innerText = score;
+    document.getElementById("resultLove").classList.remove("hidden");
+  } else if (score >= 60 && score <= 70) {
+    document.getElementById("scoreFocus").innerText = score;
+    document.getElementById("resultFocus").classList.remove("hidden");
+  } else {
+    // fallback: show focus card
+    document.getElementById("scoreFocus").innerText = score;
+    document.getElementById("resultFocus").classList.remove("hidden");
+  }
+}
+
+// Start game
+loadQuestion();
+</script>
+
+</body>
+</html>

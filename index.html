@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>For My Valentine ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ff4f8b, #ff7abf, #ffc3d9);
+      background-size: 300% 300%;
+      animation: gradientMove 10s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      opacity: 0.8;
+      animation: floatUp 8s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateY(-120vh) scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    /* Main Card */
+    .container {
+      width: 100%;
+      max-width: 420px;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 28px 22px 32px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      animation: popIn 0.8s ease;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.25);
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    h1 span {
+      background: linear-gradient(90deg, #fff, #ffe3ec);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.95;
+      margin-bottom: 24px;
+    }
+
+    /* Buttons */
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .btn {
+      padding: 15px 18px;
+      border-radius: 16px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #ff3f7a;
+      background: #fff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .footer-text {
+      margin-top: 18px;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    /* Small glow effect */
+    .glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.25), transparent 60%);
+      filter: blur(20px);
+      top: -100px;
+      right: -100px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Soft glow -->
+  <div class="glow"></div>
+
+  <!-- Floating hearts -->
+  <script>
+    for (let i = 0; i < 18; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (14 + Math.random() * 20) + "px";
+      heart.style.animationDuration = (6 + Math.random() * 6) + "s";
+      heart.style.animationDelay = (Math.random() * 5) + "s";
+      document.body.appendChild(heart);
+    }
+  </script>
+
+  <div class="container">
+    <div class="card">
+      <div class="badge">💖 Just For You</div>
+      <h1>Happy <span>Valentine’s Day Love</span> ❤️</h1>
+      <p class="subtitle">
+        Your Ahad made this little surprise just for you, because you make my world more beautiful every day.
+      </p>
+
+      <div class="actions">
+        <a href="game.html" style="text-decoration: none;"><button class="btn">🎮 Play Love Game</button></a>
+        <a href="valentine.html" style="text-decoration: none;"><button class="btn secondary">💝 Valentine’s
+            Special</button></a>
+        <a href="memories.htm" style="text-decoration: none;"><button class="btn secondary">📸 Our Beautiful Memories</button></a>
+      </div>
+
+      <div class="footer-text">
+        Made with all my love 💕
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
